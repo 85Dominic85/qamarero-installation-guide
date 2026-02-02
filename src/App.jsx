@@ -9,6 +9,13 @@ const App = () => {
     usbPrinter: false,
     wifiPrinter: false
   });
+  const [inventoryItems, setInventoryItems] = useState({
+    routerOpal: false,
+    tpv: false,
+    usbPrinter: false,
+    wifiPrinter: false,
+    cashDrawer: false
+  });
 
   const totalSteps = 8;
 
@@ -28,34 +35,39 @@ const App = () => {
     setCheckedItems(prev => ({ ...prev, [item]: !prev[item] }));
   };
 
+  const toggleInventoryItem = (item) => {
+    setInventoryItems(prev => ({ ...prev, [item]: !prev[item] }));
+  };
+
   const allChecked = Object.values(checkedItems).every(v => v);
+  const allInventoryChecked = Object.values(inventoryItems).every(v => v);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 flex items-center justify-center p-4 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 flex items-center justify-center p-2 sm:p-4 font-sans">
       <div className="w-full max-w-md">
         {/* Main Card */}
-        <div className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 overflow-hidden border border-slate-100">
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl shadow-slate-200/50 overflow-hidden border border-slate-100">
           {/* Header */}
-          <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-6 relative overflow-hidden">
+          <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 sm:p-6 relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)]" />
             <div className="relative flex items-center justify-between">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 {/* Installation Guide Icon */}
-                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="#F97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M9 12l2 2 4-4" stroke="#F97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <div>
-                  <h1 className="text-white font-black text-xl tracking-tight">QAMARERO</h1>
-                  <p className="text-orange-100 text-xs font-medium">Guía de Instalación</p>
+                <div className="min-w-0">
+                  <h1 className="text-white font-black text-lg sm:text-xl tracking-tight">QAMARERO</h1>
+                  <p className="text-orange-100 text-[10px] sm:text-xs font-medium">Guía de Instalación</p>
                 </div>
               </div>
             </div>
             
             {/* Progress Bar */}
-            <div className="mt-6 bg-white/20 rounded-full h-1.5 overflow-hidden backdrop-blur-sm">
+            <div className="mt-4 sm:mt-6 bg-white/20 rounded-full h-1.5 overflow-hidden backdrop-blur-sm">
               <div 
                 className="bg-white h-full rounded-full transition-all duration-500 ease-out shadow-lg"
                 style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
@@ -64,7 +76,7 @@ const App = () => {
           </div>
 
           {/* Content Area */}
-          <div className="p-8 min-h-[550px] flex flex-col">
+          <div className="p-4 sm:p-6 md:p-8 min-h-[450px] sm:min-h-[550px] flex flex-col">
             {/* Step 0: Welcome */}
             {currentStep === 0 && (
               <div className="flex-1 flex flex-col items-center justify-center text-center space-y-8 animate-fadeIn">
@@ -78,9 +90,9 @@ const App = () => {
                   <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full animate-ping" />
                   <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full" />
                 </div>
-                <div className="space-y-3">
-                  <h2 className="text-3xl font-black text-slate-900">¡Bienvenido!</h2>
-                  <p className="text-slate-500 text-sm max-w-xs leading-relaxed">
+                <div className="space-y-3 px-2">
+                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900">¡Bienvenido!</h2>
+                  <p className="text-slate-500 text-xs sm:text-sm max-w-xs leading-relaxed mx-auto">
                     Vamos a configurar tu pack Qamarero en <span className="font-bold text-orange-500">5 pasos sencillos</span>
                   </p>
                 </div>
@@ -94,131 +106,243 @@ const App = () => {
 
             {/* Step 1: Inventory */}
             {currentStep === 1 && (
-              <div className="flex-1 flex flex-col space-y-6 animate-fadeIn">
+              <div className="flex-1 flex flex-col space-y-4 sm:space-y-6 animate-fadeIn">
                 <div className="text-center space-y-2">
                   <span className="inline-block px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-xs font-bold uppercase tracking-wide">
                     Inventario
                   </span>
-                  <h2 className="text-2xl font-black text-slate-900">
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900">
                     Identifica los 5 equipos
                   </h2>
-                  <p className="text-slate-500 text-sm">Antes de empezar, verifica que tienes todo</p>
+                  <p className="text-slate-500 text-xs sm:text-sm px-2">Marca cada equipo según las etiquetas que tienen pegadas</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 flex-1">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 flex-1">
                   {/* Router Opal */}
-                  <div className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-4 border border-slate-100 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer group">
-                    <div className="flex flex-col items-center space-y-3">
-                      <div className="relative">
-                        <div className="w-20 h-14 bg-white rounded-xl shadow-md border border-slate-200 flex items-center justify-center relative group-hover:scale-105 transition-transform">
-                          <div className="w-1 h-8 bg-slate-300 rounded-full absolute -left-3" />
-                          <div className="w-1 h-8 bg-slate-300 rounded-full absolute -right-3" />
-                          <span className="text-slate-400 text-xs font-mono">GL-iNet</span>
-                          <div className="absolute top-2 left-2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                        </div>
+                  <button
+                    onClick={() => toggleInventoryItem('routerOpal')}
+                    className={`bg-gradient-to-br rounded-2xl p-3 sm:p-4 border-2 transition-all duration-300 relative ${
+                      inventoryItems.routerOpal
+                        ? 'from-green-50 to-green-100 border-green-400 shadow-lg shadow-green-500/20'
+                        : 'from-slate-50 to-white border-slate-200 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10'
+                    }`}
+                  >
+                    {inventoryItems.routerOpal && (
+                      <div className="absolute top-2 right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
                       </div>
-                      <p className="text-xs font-bold text-slate-700 text-center">ROUTER OPAL</p>
+                    )}
+                    <div className="flex flex-col items-center space-y-2 sm:space-y-3">
+                      <div className="w-16 sm:w-20 h-12 sm:h-14 bg-white rounded-xl shadow-md border border-slate-200 flex items-center justify-center relative">
+                        <div className="w-1 h-6 sm:h-8 bg-slate-300 rounded-full absolute -left-2 sm:-left-3" />
+                        <div className="w-1 h-6 sm:h-8 bg-slate-300 rounded-full absolute -right-2 sm:-right-3" />
+                        <span className="text-slate-400 text-[10px] sm:text-xs font-mono">GL-iNet</span>
+                        <div className="absolute top-1 sm:top-2 left-1 sm:left-2 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-[10px] sm:text-xs font-bold text-slate-700">ROUTER OPAL</p>
+                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "OPAL"</p>
+                      </div>
                     </div>
-                  </div>
+                  </button>
 
-                  {/* TPV */}
-                  <div className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-4 border border-slate-100 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer group">
-                    <div className="flex flex-col items-center space-y-3">
-                      <div className="relative">
-                        <div className="w-20 h-24 bg-slate-800 rounded-t-xl shadow-xl relative group-hover:scale-105 transition-transform">
-                          <div className="absolute inset-2 bg-slate-700 rounded-lg" />
-                          <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                        </div>
-                        <div className="w-20 h-2 bg-slate-400 rounded-b-lg" />
+                  {/* TPV - Mejorado para parecer más un TPV real */}
+                  <button
+                    onClick={() => toggleInventoryItem('tpv')}
+                    className={`bg-gradient-to-br rounded-2xl p-3 sm:p-4 border-2 transition-all duration-300 relative ${
+                      inventoryItems.tpv
+                        ? 'from-green-50 to-green-100 border-green-400 shadow-lg shadow-green-500/20'
+                        : 'from-slate-50 to-white border-slate-200 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10'
+                    }`}
+                  >
+                    {inventoryItems.tpv && (
+                      <div className="absolute top-2 right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center z-10">
+                        <Check className="w-4 h-4 text-white" />
                       </div>
-                      <p className="text-xs font-bold text-slate-700 text-center">TPV TÁCTIL</p>
+                    )}
+                    <div className="flex flex-col items-center space-y-2 sm:space-y-3">
+                      {/* TPV con pantalla y base */}
+                      <div className="relative">
+                        {/* Pantalla */}
+                        <div className="w-16 sm:w-20 h-20 sm:h-24 bg-slate-800 rounded-lg shadow-xl relative border-2 border-slate-700">
+                          <div className="absolute inset-2 bg-gradient-to-br from-slate-600 to-slate-700 rounded-md" />
+                          <div className="absolute top-1 sm:top-2 right-1 sm:right-2 w-1 sm:w-1.5 h-1 sm:h-1.5 bg-green-500 rounded-full" />
+                          {/* Botones táctiles simulados */}
+                          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-1 bg-slate-600 rounded-full" />
+                        </div>
+                        {/* Base/Peana */}
+                        <div className="w-12 sm:w-16 h-1 sm:h-1.5 bg-slate-400 rounded-full mx-auto mt-1" />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-[10px] sm:text-xs font-bold text-slate-700">TPV TÁCTIL</p>
+                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "TPV"</p>
+                      </div>
                     </div>
-                  </div>
+                  </button>
 
                   {/* USB Printer */}
-                  <div className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-4 border border-slate-100 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer group">
-                    <div className="flex flex-col items-center space-y-3">
-                      <div className="w-20 h-16 bg-slate-800 rounded-xl shadow-md flex items-center justify-center relative group-hover:scale-105 transition-transform">
-                        <div className="w-12 h-8 bg-slate-700 rounded-md" />
+                  <button
+                    onClick={() => toggleInventoryItem('usbPrinter')}
+                    className={`bg-gradient-to-br rounded-2xl p-3 sm:p-4 border-2 transition-all duration-300 relative ${
+                      inventoryItems.usbPrinter
+                        ? 'from-green-50 to-green-100 border-green-400 shadow-lg shadow-green-500/20'
+                        : 'from-slate-50 to-white border-slate-200 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10'
+                    }`}
+                  >
+                    {inventoryItems.usbPrinter && (
+                      <div className="absolute top-2 right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    )}
+                    <div className="flex flex-col items-center space-y-2 sm:space-y-3">
+                      <div className="w-16 sm:w-20 h-14 sm:h-16 bg-slate-800 rounded-xl shadow-md flex items-center justify-center relative">
+                        <div className="w-10 sm:w-12 h-6 sm:h-8 bg-slate-700 rounded-md" />
                         <div className="absolute bottom-2 flex gap-1">
-                          <div className="w-1.5 h-1.5 bg-slate-600 rounded-full" />
-                          <div className="w-1.5 h-1.5 bg-slate-600 rounded-full" />
-                          <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse" />
+                          <div className="w-1 sm:w-1.5 h-1 sm:h-1.5 bg-slate-600 rounded-full" />
+                          <div className="w-1 sm:w-1.5 h-1 sm:h-1.5 bg-slate-600 rounded-full" />
+                          <div className="w-1 sm:w-1.5 h-1 sm:h-1.5 bg-orange-500 rounded-full" />
                         </div>
                       </div>
-                      <p className="text-xs font-bold text-slate-700 text-center">IMPRESORA USB</p>
+                      <div className="text-center">
+                        <p className="text-[10px] sm:text-xs font-bold text-slate-700">IMPRESORA USB</p>
+                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "IMP1"</p>
+                      </div>
                     </div>
-                  </div>
+                  </button>
 
                   {/* WiFi Printer */}
-                  <div className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-4 border border-slate-100 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer group">
-                    <div className="flex flex-col items-center space-y-3">
-                      <div className="w-20 h-16 bg-slate-800 rounded-xl shadow-md flex items-center justify-center relative group-hover:scale-105 transition-transform">
-                        <div className="w-12 h-8 bg-slate-700 rounded-md" />
-                        <Wifi className="absolute top-1 right-1 w-3 h-3 text-blue-500" />
+                  <button
+                    onClick={() => toggleInventoryItem('wifiPrinter')}
+                    className={`bg-gradient-to-br rounded-2xl p-3 sm:p-4 border-2 transition-all duration-300 relative ${
+                      inventoryItems.wifiPrinter
+                        ? 'from-green-50 to-green-100 border-green-400 shadow-lg shadow-green-500/20'
+                        : 'from-slate-50 to-white border-slate-200 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10'
+                    }`}
+                  >
+                    {inventoryItems.wifiPrinter && (
+                      <div className="absolute top-2 right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    )}
+                    <div className="flex flex-col items-center space-y-2 sm:space-y-3">
+                      <div className="w-16 sm:w-20 h-14 sm:h-16 bg-slate-800 rounded-xl shadow-md flex items-center justify-center relative">
+                        <div className="w-10 sm:w-12 h-6 sm:h-8 bg-slate-700 rounded-md" />
+                        <Wifi className="absolute top-1 right-1 w-2.5 sm:w-3 h-2.5 sm:h-3 text-blue-500" />
                         <div className="absolute bottom-2 flex gap-1">
-                          <div className="w-1.5 h-1.5 bg-slate-600 rounded-full" />
-                          <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+                          <div className="w-1 sm:w-1.5 h-1 sm:h-1.5 bg-slate-600 rounded-full" />
+                          <div className="w-1 sm:w-1.5 h-1 sm:h-1.5 bg-blue-500 rounded-full" />
                         </div>
                       </div>
-                      <p className="text-xs font-bold text-slate-700 text-center">IMPRESORA WiFi</p>
+                      <div className="text-center">
+                        <p className="text-[10px] sm:text-xs font-bold text-slate-700">IMPRESORA WiFi</p>
+                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "IMP2"</p>
+                      </div>
                     </div>
-                  </div>
+                  </button>
 
                   {/* Cash Drawer */}
-                  <div className="col-span-2 bg-gradient-to-br from-slate-50 to-white rounded-2xl p-4 border border-slate-100 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer group">
-                    <div className="flex flex-col items-center space-y-3">
-                      <div className="w-32 h-10 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg shadow-md relative group-hover:scale-105 transition-transform">
-                        <div className="absolute inset-x-4 top-3 h-1 bg-slate-700 rounded" />
-                        <div className="absolute right-2 top-2 w-3 h-6 bg-slate-700 rounded" />
+                  <button
+                    onClick={() => toggleInventoryItem('cashDrawer')}
+                    className={`col-span-2 bg-gradient-to-br rounded-2xl p-3 sm:p-4 border-2 transition-all duration-300 relative ${
+                      inventoryItems.cashDrawer
+                        ? 'from-green-50 to-green-100 border-green-400 shadow-lg shadow-green-500/20'
+                        : 'from-slate-50 to-white border-slate-200 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-500/10'
+                    }`}
+                  >
+                    {inventoryItems.cashDrawer && (
+                      <div className="absolute top-2 right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
                       </div>
-                      <p className="text-xs font-bold text-slate-700">CAJÓN PORTAMONEDAS</p>
+                    )}
+                    <div className="flex flex-col items-center space-y-2 sm:space-y-3">
+                      <div className="w-28 sm:w-32 h-8 sm:h-10 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg shadow-md relative">
+                        <div className="absolute inset-x-3 sm:inset-x-4 top-2 sm:top-3 h-0.5 sm:h-1 bg-slate-700 rounded" />
+                        <div className="absolute right-2 top-1 sm:top-2 w-2 sm:w-3 h-4 sm:h-6 bg-slate-700 rounded" />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-[10px] sm:text-xs font-bold text-slate-700">CAJÓN PORTAMONEDAS</p>
+                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "CAJÓN"</p>
+                      </div>
                     </div>
-                  </div>
+                  </button>
                 </div>
+
+                {/* Info box */}
+                {!allInventoryChecked && (
+                  <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4">
+                    <p className="text-[10px] sm:text-xs text-blue-900 leading-relaxed text-center">
+                      <span className="font-bold">💡 Ayuda:</span> Cada equipo tiene una etiqueta pegada. Márcalos todos para continuar.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
             {/* Step 2: Internet & WiFi */}
             {currentStep === 2 && (
-              <div className="flex-1 flex flex-col space-y-6 animate-fadeIn">
+              <div className="flex-1 flex flex-col space-y-4 sm:space-y-6 animate-fadeIn">
                 <div className="text-center space-y-2">
                   <span className="inline-block px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-xs font-bold uppercase tracking-wide">
                     Paso 1: Internet y WiFi
                   </span>
-                  <h2 className="text-2xl font-black text-slate-900 leading-tight">
-                    Conecta el Opal y enchufa la WiFi
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight px-2">
+                    Antes de encender el Opal
                   </h2>
-                  <p className="text-slate-500 text-sm">Router del cliente <span className="font-bold text-red-500">APAGADO</span></p>
+                  <p className="text-slate-500 text-xs sm:text-sm px-2"><span className="font-bold text-red-500 text-base sm:text-lg">⚠️ APAGA TU ROUTER</span></p>
                 </div>
 
-                <div className="flex-1 flex flex-col justify-center space-y-6">
+                <div className="flex-1 flex flex-col justify-center space-y-4 sm:space-y-6">
                   {/* Connection Diagram */}
                   <div className="relative">
-                    <div className="flex items-center justify-between gap-2 px-2">
+                    <div className="flex items-center justify-between gap-1 sm:gap-2 px-1 sm:px-2">
                       {/* Client Router (OFF) */}
                       <div className="flex-1 flex flex-col items-center">
-                        <div className="w-20 h-14 bg-slate-800 rounded-xl shadow-lg relative mb-3">
-                          <Power className="absolute top-2 left-2 w-4 h-4 text-red-500" />
-                          <span className="absolute bottom-1 right-1 text-[8px] text-red-400 font-bold">OFF</span>
-                          <div className="absolute -bottom-1 -right-1 w-1 h-5 bg-slate-700 rounded-full" />
-                          <div className="absolute -bottom-1 -left-1 w-1 h-5 bg-slate-700 rounded-full" />
+                        <div className="w-16 sm:w-20 h-12 sm:h-14 bg-slate-800 rounded-xl shadow-lg relative mb-2 sm:mb-3">
+                          <Power className="absolute top-1 sm:top-2 left-1 sm:left-2 w-3 sm:w-4 h-3 sm:h-4 text-red-500" />
+                          <span className="absolute bottom-0.5 sm:bottom-1 right-0.5 sm:right-1 text-[7px] sm:text-[8px] text-red-400 font-bold">OFF</span>
+                          <div className="absolute -bottom-1 -right-1 w-0.5 sm:w-1 h-4 sm:h-5 bg-slate-700 rounded-full" />
+                          <div className="absolute -bottom-1 -left-1 w-0.5 sm:w-1 h-4 sm:h-5 bg-slate-700 rounded-full" />
+                          {/* RJ45 Port */}
+                          <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-2 sm:w-3 h-3 sm:h-4 bg-slate-600 rounded-sm border border-slate-500" />
                         </div>
-                        <p className="text-[10px] font-bold text-slate-700 text-center">TU ROUTER</p>
+                        <p className="text-[9px] sm:text-[10px] font-bold text-slate-700 text-center">TU ROUTER</p>
+                        <p className="text-[8px] sm:text-[9px] text-red-600 font-bold">¡APÁGALO!</p>
                       </div>
 
-                      {/* Cable */}
-                      <div className="flex-1 flex flex-col items-center justify-center relative h-14">
-                        <div className="w-full h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full animate-pulse" />
-                        <span className="text-[9px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200 mt-2 whitespace-nowrap">
+                      {/* Cable with RJ45 connectors */}
+                      <div className="flex-1 flex items-center justify-center relative h-12 sm:h-14">
+                        {/* Left RJ45 connector */}
+                        <div className="absolute left-0 w-2 sm:w-3 h-3 sm:h-4 bg-orange-400 rounded-sm border-2 border-orange-500 shadow-md" />
+                        {/* Cable */}
+                        <div className="w-full h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full relative">
+                          <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full animate-pulse opacity-75" />
+                        </div>
+                        {/* Right RJ45 connector */}
+                        <div className="absolute right-0 w-2 sm:w-3 h-3 sm:h-4 bg-orange-400 rounded-sm border-2 border-orange-500 shadow-md" />
+                        <span className="absolute -bottom-6 sm:-bottom-7 left-1/2 -translate-x-1/2 text-[8px] sm:text-[9px] font-bold text-orange-600 bg-orange-50 px-1.5 sm:px-2 py-0.5 rounded-full border border-orange-200 whitespace-nowrap">
                           CABLE RED
                         </span>
                       </div>
 
                       {/* Opal Router */}
                       <div className="flex-1 flex flex-col items-center">
-                        <div className="w-20 h-14 bg-white rounded-xl shadow-lg relative border-2 border-slate-200 mb-3">
-                          <div className="absolute top-2 left-2 flex gap-0.5">
+                        <div className="w-16 sm:w-20 h-12 sm:h-14 bg-white rounded-xl shadow-lg relative border-2 border-slate-200 mb-2 sm:mb-3">
+                          <div className="absolute top-1 sm:top-2 left-1 sm:left-2 flex gap-0.5">
+                            <div className="w-1 h-1 bg-green-500 rounded-full" />
+                            <div className="w-1 h-1 bg-green-500 rounded-full" style={{ animationDelay: '0.2s' }} />
+                            <div className="w-1 h-1 bg-green-500 rounded-full" style={{ animationDelay: '0.4s' }} />
+                          </div>
+                          <span className="absolute bottom-0.5 sm:bottom-1 right-0.5 sm:right-1 text-[6px] sm:text-[7px] text-slate-400 font-mono">GL-iNet</span>
+                          <div className="absolute -top-0.5 sm:-top-1 -right-1.5 sm:-right-2 w-0.5 sm:w-1 h-6 sm:h-8 bg-slate-300 rounded-full" />
+                          <div className="absolute -top-0.5 sm:-top-1 -left-1.5 sm:-left-2 w-0.5 sm:w-1 h-6 sm:h-8 bg-slate-300 rounded-full" />
+                          {/* WAN port with RJ45 */}
+                          <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 sm:w-3 h-3 sm:h-4 bg-orange-500 rounded-sm border border-orange-600 shadow-md" />
+                        </div>
+                        <p className="text-[9px] sm:text-[10px] font-bold text-slate-700 text-center">ROUTER OPAL</p>
+                        <p className="text-[7px] sm:text-[8px] text-orange-600 font-bold text-center">Puerto WAN ⬅</p>
+                      </div>
+                    </div>
+                  </div>
                             <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" />
                             <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
                             <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
@@ -788,37 +912,57 @@ const App = () => {
                       </div>
                     </div>
                   </div>
+
+                  {/* Help Center Link */}
+                  <a
+                    href="https://intercom.help/qamarero-9e4c4f5026e3/es/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 rounded-2xl p-4 hover:shadow-xl hover:scale-[1.02] transition-all block"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="text-xl">❓</span>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-purple-900 mb-1">¿Necesitas ayuda?</p>
+                        <p className="text-xs text-purple-700 leading-relaxed">
+                          Visita nuestro <span className="font-bold">Centro de Ayuda</span> →
+                        </p>
+                      </div>
+                    </div>
+                  </a>
                 </div>
               </div>
             )}
           </div>
 
           {/* Navigation Footer */}
-          <div className="p-6 bg-slate-50 border-t border-slate-100">
-            <div className="flex items-center justify-between gap-4">
+          <div className="p-3 sm:p-4 md:p-6 bg-slate-50 border-t border-slate-100">
+            <div className="flex items-center justify-between gap-2 sm:gap-4">
               <button
                 onClick={prevStep}
                 disabled={currentStep === 0}
-                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all ${
+                className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-5 py-2 sm:py-3 rounded-xl font-bold text-xs sm:text-sm transition-all ${
                   currentStep === 0
                     ? 'opacity-0 pointer-events-none'
                     : 'text-slate-600 hover:bg-white hover:shadow-md active:scale-95'
                 }`}
               >
-                <ChevronLeft className="w-4 h-4" />
-                Atrás
+                <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Atrás</span>
               </button>
 
-              <div className="flex gap-1.5">
+              <div className="flex gap-1 sm:gap-1.5">
                 {[...Array(totalSteps)].map((_, index) => (
                   <div
                     key={index}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                    className={`h-1 sm:h-1.5 rounded-full transition-all duration-300 ${
                       index === currentStep
-                        ? 'w-8 bg-orange-500'
+                        ? 'w-6 sm:w-8 bg-orange-500'
                         : index < currentStep
-                        ? 'w-1.5 bg-green-500'
-                        : 'w-1.5 bg-slate-200'
+                        ? 'w-1 sm:w-1.5 bg-green-500'
+                        : 'w-1 sm:w-1.5 bg-slate-200'
                     }`}
                   />
                 ))}
@@ -826,22 +970,29 @@ const App = () => {
 
               <button
                 onClick={nextStep}
-                disabled={currentStep === totalSteps - 1}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg ${
+                disabled={
+                  currentStep === totalSteps - 1 || 
+                  (currentStep === 1 && !allInventoryChecked) ||
+                  (currentStep === 6 && !allChecked)
+                }
+                className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-lg ${
                   currentStep === totalSteps - 1
                     ? 'bg-green-500 text-white shadow-green-500/30 cursor-default'
+                    : (currentStep === 1 && !allInventoryChecked) || (currentStep === 6 && !allChecked)
+                    ? 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none'
                     : 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-xl hover:shadow-orange-500/40 active:scale-95'
                 }`}
               >
                 {currentStep === totalSteps - 1 ? (
                   <>
-                    <Check className="w-4 h-4" />
+                    <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                     Listo
                   </>
                 ) : (
                   <>
-                    Continuar
-                    <ChevronRight className="w-4 h-4" />
+                    <span className="hidden sm:inline">Continuar</span>
+                    <span className="sm:hidden">Siguiente</span>
+                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                   </>
                 )}
               </button>
@@ -850,8 +1001,8 @@ const App = () => {
         </div>
 
         {/* Bottom Info */}
-        <div className="text-center mt-6">
-          <p className="text-xs text-slate-400">
+        <div className="text-center mt-4 sm:mt-6 px-4">
+          <p className="text-[10px] sm:text-xs text-slate-400">
             ¿Necesitas ayuda? Contacta con tu Account Manager
           </p>
         </div>
