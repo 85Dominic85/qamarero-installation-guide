@@ -7,7 +7,8 @@ const App = () => {
     tpv: false,
     routers: false,
     usbPrinter: false,
-    wifiPrinter: false
+    wifiPrinter: false,
+    cashDrawer: false
   });
   const [inventoryItems, setInventoryItems] = useState({
     routerOpal: false,
@@ -136,8 +137,10 @@ const App = () => {
                       <div className="w-16 sm:w-20 h-12 sm:h-14 bg-white rounded-xl shadow-md border border-slate-200 flex items-center justify-center relative">
                         <div className="w-1 h-6 sm:h-8 bg-slate-300 rounded-full absolute -left-2 sm:-left-3" />
                         <div className="w-1 h-6 sm:h-8 bg-slate-300 rounded-full absolute -right-2 sm:-right-3" />
-                        <span className="text-slate-400 text-[10px] sm:text-xs font-mono">GL-iNet</span>
+                        <span className="text-slate-400 text-[8px] sm:text-[9px] font-sans">GL-iNet</span>
                         <div className="absolute top-1 sm:top-2 left-1 sm:left-2 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
+                        {/* Orange sticker at bottom */}
+                        <div className="absolute bottom-1 right-2 sm:right-3 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-orange-500 rounded-full" />
                       </div>
                       <div className="text-center">
                         <p className="text-[10px] sm:text-xs font-bold text-slate-700">ROUTER OPAL</p>
@@ -146,7 +149,7 @@ const App = () => {
                     </div>
                   </button>
 
-                  {/* TPV - Mejorado para parecer más un TPV real */}
+                  {/* TPV - Tamaño similar a otros dispositivos */}
                   <button
                     onClick={() => toggleInventoryItem('tpv')}
                     className={`bg-gradient-to-br rounded-2xl p-3 sm:p-4 border-2 transition-all duration-300 relative ${
@@ -161,17 +164,16 @@ const App = () => {
                       </div>
                     )}
                     <div className="flex flex-col items-center space-y-2 sm:space-y-3">
-                      {/* TPV con pantalla y base */}
+                      {/* TPV compacto */}
                       <div className="relative">
                         {/* Pantalla */}
-                        <div className="w-16 sm:w-20 h-20 sm:h-24 bg-slate-800 rounded-lg shadow-xl relative border-2 border-slate-700">
-                          <div className="absolute inset-2 bg-gradient-to-br from-slate-600 to-slate-700 rounded-md" />
-                          <div className="absolute top-1 sm:top-2 right-1 sm:right-2 w-1 sm:w-1.5 h-1 sm:h-1.5 bg-green-500 rounded-full" />
-                          {/* Botones táctiles simulados */}
-                          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-1 bg-slate-600 rounded-full" />
+                        <div className="w-16 sm:w-20 h-16 sm:h-20 bg-slate-800 rounded-t-lg shadow-xl relative">
+                          <div className="absolute inset-2 bg-gradient-to-br from-slate-700 to-slate-900 rounded-md" />
+                          <div className="absolute top-1 right-1 w-1 sm:w-1.5 h-1 sm:h-1.5 bg-green-500 rounded-full" />
                         </div>
-                        {/* Base/Peana */}
-                        <div className="w-12 sm:w-16 h-1 sm:h-1.5 bg-slate-400 rounded-full mx-auto mt-1" />
+                        {/* Base */}
+                        <div className="w-16 sm:w-20 h-1.5 sm:h-2 bg-slate-400 rounded-b-md" />
+                        <div className="w-10 sm:w-12 h-0.5 sm:h-1 bg-slate-300 rounded-b-sm mx-auto" />
                       </div>
                       <div className="text-center">
                         <p className="text-[10px] sm:text-xs font-bold text-slate-700">TPV TÁCTIL</p>
@@ -205,7 +207,7 @@ const App = () => {
                       </div>
                       <div className="text-center">
                         <p className="text-[10px] sm:text-xs font-bold text-slate-700">IMPRESORA USB</p>
-                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "IMP1"</p>
+                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "USB"</p>
                       </div>
                     </div>
                   </button>
@@ -235,7 +237,7 @@ const App = () => {
                       </div>
                       <div className="text-center">
                         <p className="text-[10px] sm:text-xs font-bold text-slate-700">IMPRESORA WiFi</p>
-                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "IMP2"</p>
+                        <p className="text-[8px] sm:text-[10px] text-orange-600 font-semibold">Etiqueta: "WIFI"</p>
                       </div>
                     </div>
                   </button>
@@ -332,29 +334,16 @@ const App = () => {
                             <div className="w-1 h-1 bg-green-500 rounded-full" style={{ animationDelay: '0.2s' }} />
                             <div className="w-1 h-1 bg-green-500 rounded-full" style={{ animationDelay: '0.4s' }} />
                           </div>
-                          <span className="absolute bottom-0.5 sm:bottom-1 right-0.5 sm:right-1 text-[6px] sm:text-[7px] text-slate-400 font-mono">GL-iNet</span>
+                          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[8px] sm:text-[9px] text-slate-400 font-sans">GL-iNet</span>
                           <div className="absolute -top-0.5 sm:-top-1 -right-1.5 sm:-right-2 w-0.5 sm:w-1 h-6 sm:h-8 bg-slate-300 rounded-full" />
                           <div className="absolute -top-0.5 sm:-top-1 -left-1.5 sm:-left-2 w-0.5 sm:w-1 h-6 sm:h-8 bg-slate-300 rounded-full" />
                           {/* WAN port with RJ45 */}
                           <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 sm:w-3 h-3 sm:h-4 bg-orange-500 rounded-sm border border-orange-600 shadow-md" />
+                          {/* Orange sticker at bottom */}
+                          <div className="absolute bottom-1 right-2 sm:right-3 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-orange-500 rounded-full" />
                         </div>
                         <p className="text-[9px] sm:text-[10px] font-bold text-slate-700 text-center">ROUTER OPAL</p>
                         <p className="text-[7px] sm:text-[8px] text-orange-600 font-bold text-center">Puerto WAN ⬅</p>
-                      </div>
-                    </div>
-                  </div>
-                            <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" />
-                            <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-                            <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
-                          </div>
-                          <span className="absolute bottom-1 right-1 text-[7px] text-slate-400 font-mono">GL-iNet</span>
-                          <div className="absolute -top-1 -right-2 w-1 h-8 bg-slate-300 rounded-full" />
-                          <div className="absolute -top-1 -left-2 w-1 h-8 bg-slate-300 rounded-full" />
-                          {/* WAN port */}
-                          <div className="absolute bottom-0 right-3 w-2 h-1.5 bg-orange-500 rounded-t" />
-                        </div>
-                        <p className="text-[10px] font-bold text-slate-700 text-center">ROUTER OPAL</p>
-                        <p className="text-[8px] text-orange-600 font-bold text-center mt-0.5">Puerto WAN</p>
                       </div>
                     </div>
                   </div>
@@ -666,7 +655,7 @@ const App = () => {
                         </div>
                         <div className="flex-1 text-left">
                           <p className="text-sm font-bold text-slate-900">TPV Encendido</p>
-                          <p className="text-xs text-slate-500">Luz verde activa</p>
+                          <p className="text-xs text-slate-500">y conectado a Qamarero2.4G</p>
                         </div>
                         <Power className={`w-5 h-5 ${checkedItems.tpv ? 'text-green-500' : 'text-slate-400'}`} />
                       </div>
@@ -687,8 +676,8 @@ const App = () => {
                           {checkedItems.routers && <Check className="w-4 h-4 text-white" />}
                         </div>
                         <div className="flex-1 text-left">
-                          <p className="text-sm font-bold text-slate-900">Routers con Luz</p>
-                          <p className="text-xs text-slate-500">Ambos encendidos</p>
+                          <p className="text-sm font-bold text-slate-900">Ambos Routers Encendidos</p>
+                          <p className="text-xs text-slate-500">Cliente y Opal</p>
                         </div>
                         <Wifi className={`w-5 h-5 ${checkedItems.routers ? 'text-green-500' : 'text-slate-400'}`} />
                       </div>
@@ -709,8 +698,8 @@ const App = () => {
                           {checkedItems.usbPrinter && <Check className="w-4 h-4 text-white" />}
                         </div>
                         <div className="flex-1 text-left">
-                          <p className="text-sm font-bold text-slate-900">Imp. USB con Luz</p>
-                          <p className="text-xs text-slate-500">LED naranja activo</p>
+                          <p className="text-sm font-bold text-slate-900">Impresora USB Encendida</p>
+                          <p className="text-xs text-slate-500">Conectada y lista</p>
                         </div>
                         <Printer className={`w-5 h-5 ${checkedItems.usbPrinter ? 'text-green-500' : 'text-slate-400'}`} />
                       </div>
@@ -731,10 +720,32 @@ const App = () => {
                           {checkedItems.wifiPrinter && <Check className="w-4 h-4 text-white" />}
                         </div>
                         <div className="flex-1 text-left">
-                          <p className="text-sm font-bold text-slate-900">Imp. WiFi con Luz</p>
-                          <p className="text-xs text-slate-500">LED azul activo</p>
+                          <p className="text-sm font-bold text-slate-900">Impresora WiFi Encendida</p>
+                          <p className="text-xs text-slate-500">Conectada y lista</p>
                         </div>
                         <Printer className={`w-5 h-5 ${checkedItems.wifiPrinter ? 'text-green-500' : 'text-slate-400'}`} />
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => toggleCheck('cashDrawer')}
+                      className={`w-full rounded-2xl p-4 border-2 transition-all duration-300 ${
+                        checkedItems.cashDrawer
+                          ? 'bg-green-50 border-green-400 shadow-lg shadow-green-500/20'
+                          : 'bg-slate-50 border-slate-200 hover:border-slate-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                          checkedItems.cashDrawer ? 'bg-green-500' : 'bg-slate-200'
+                        }`}>
+                          {checkedItems.cashDrawer && <Check className="w-4 h-4 text-white" />}
+                        </div>
+                        <div className="flex-1 text-left">
+                          <p className="text-sm font-bold text-slate-900">Cajón Conectado</p>
+                          <p className="text-xs text-slate-500">Cable conectado a impresora</p>
+                        </div>
+                        <Cable className={`w-5 h-5 ${checkedItems.cashDrawer ? 'text-green-500' : 'text-slate-400'}`} />
                       </div>
                     </button>
                   </div>
@@ -832,6 +843,29 @@ const App = () => {
                       </div>
                     </div>
                   </div>
+
+                  {/* Help Center Button */}
+                  <a
+                    href="https://intercom.help/qamarero-9e4c4f5026e3/es/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-5 hover:shadow-2xl hover:scale-[1.02] transition-all shadow-xl"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center flex-shrink-0">
+                          <span className="text-3xl">❓</span>
+                        </div>
+                        <div className="text-left">
+                          <p className="text-base font-black text-white mb-1">¿Necesitas Ayuda?</p>
+                          <p className="text-sm text-purple-100">
+                            Visita nuestro Centro de Ayuda
+                          </p>
+                        </div>
+                      </div>
+                      <ChevronRight className="w-6 h-6 text-white flex-shrink-0" />
+                    </div>
+                  </a>
                 </div>
               </div>
             )}
